@@ -11,12 +11,12 @@ from time import sleep
 class web_browser(object):
     def __init__(self,company_name=0,address=0,credit_code=0,legal_person=0,\
                         registered_capital=0,status=0,type=0,business_num=0,business_term=0,\
-                        introduction = 0):
+                        introduction = 0, canbaorenshu = 0):
         option = webdriver.ChromeOptions()
-        server = Service(executable_path='/Users/livion/Documents/GitHub/Sources/SeleniumForCAICT/chromedriver')
+        server = Service(executable_path='/Users/livion/Documents/GitHub/Sources/SeleniumForQichacha/chromedriver')
         #初始化webbrowser实例
         self.driver = webdriver.Chrome(service = server,options=option)
-        self.company_name,self.address,self.credit_code,self.legal_person,self.registered_capital,self.status,self.type,self.business_num,self.business_term,self.introduction = company_name,address,credit_code,legal_person,registered_capital,status,type,business_num,business_term,introduction
+        self.company_name,self.address,self.credit_code,self.legal_person,self.registered_capital,self.status,self.type,self.business_num,self.business_term,self.introduction,self.canbaorenshu = company_name,address,credit_code,legal_person,registered_capital,status,type,business_num,business_term,introduction,canbaorenshu
         ##维护列表：
         self.search_xpath = '/html/body/div[1]/div[2]/section[1]/div/div/div/div[1]/div/div/span/button'
         self.search_click_button_xpath = '/html/body/div[1]/div[1]/div/div/div/div/div/div/span/button'
@@ -34,6 +34,7 @@ class web_browser(object):
         self.business_num_xpath = '//*[@id="cominfo"]/div[2]/table/tr[4]/td[4]/div/span[1]'
         self.business_term_xpath = '//*[@id="cominfo"]/div[2]/table/tr[5]/td[4]'
         self.introdunction_xpath = '/html/body/div/div[2]/div[2]/div/div[1]/div[2]/div[2]/div[3]/div[4]/span[1]/span/span'
+        self.canbaorenshu_xpath = '//*[@id="cominfo"]/div[2]/table/tr[7]/td[4]/span'
         #手动登陆企查查
         self.driver.get('https://www.qichacha.com/user_login')
         sleep(5)
@@ -138,6 +139,14 @@ class web_browser(object):
             except:
                 introduction ='没有找到企业简介'  
             return_dic['简介'] = introduction
+
+        if self.canbaorenshu:
+            try:
+                renshu = self.driver.find_element(By.XPATH,self.canbaorenshu_xpath).text
+            except:
+                renshu ='没有参保人数'
+            return_dic['参保人数'] = renshu 
+
         return return_dic
         
 
@@ -168,9 +177,9 @@ def read_excel(file_name,sheet_name,row_num = 1,column_num = 0):
 
 if __name__ == "__main__":
     newsheet,sheet_copy,company_list = read_excel('company.xls','Sheet1')
-    d = web_browser(company_name=0,address=1,credit_code=1,legal_person=1,\
-                        registered_capital=1,status=1,type=1,business_num=1,business_term=1,\
-                        introduction = 0)
+    d = web_browser(company_name=0,address=0,credit_code=0,legal_person=0,\
+                        registered_capital=0,status=0,type=0,business_num=0,business_term=0,\
+                        introduction = 0,canbaorenshu=1)
     for i in range(0,len(company_list)):
         company_txt = company_list[i]
         if i==0:
