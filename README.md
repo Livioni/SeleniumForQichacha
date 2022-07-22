@@ -1,4 +1,4 @@
-# SeleiumForCAICT
+# SeleiumForQichacha
  企查查之seleium自动化操作：该脚本可按照Excel已有企业名称数据在企查查上自动搜索企业地址，法人等信息。
 
   例如：需要查找重庆上市企业信息，已有企业名称，遂编写该脚本实现自动化操作。
