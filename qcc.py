@@ -13,7 +13,7 @@ class web_browser(object):
                         registered_capital=0,status=0,type=0,business_num=0,business_term=0,\
                         introduction = 0, canbaorenshu = 0):
         option = webdriver.ChromeOptions()
-        server = Service(executable_path='/Users/livion/Documents/GitHub/Sources/SeleniumForQichacha/chromedriver')
+        server = Service(executable_path='/Users/livion/Documents/GitHub/Sources/SeleniumForQichacha/chromedriver_mac')
         #初始化webbrowser实例
         self.driver = webdriver.Chrome(service = server,options=option)
         self.company_name,self.address,self.credit_code,self.legal_person,self.registered_capital,self.status,self.type,self.business_num,self.business_term,self.introduction,self.canbaorenshu = company_name,address,credit_code,legal_person,registered_capital,status,type,business_num,business_term,introduction,canbaorenshu
@@ -37,7 +37,7 @@ class web_browser(object):
         self.canbaorenshu_xpath = '//*[@id="cominfo"]/div[2]/table/tr[7]/td[4]/span'
         #手动登陆企查查
         self.driver.get('https://www.qichacha.com/user_login')
-        sleep(5)
+        sleep(20)
         
     def search(self,keyword):
         #向搜索框注入文字
